@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import SIGNUP, { SignupPage } from './pages/Signup'
 import SIGNIN, { SigninPage } from './pages/Signin'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { HashRouter, Route, Routes } from 'react-router-dom'
 import { Dashboard } from './pages/Dashboard'
 import PRODUCT  from './pages/ProductPage'
 import PROFILEPAGE from './pages/UserProfilePage'
@@ -21,7 +21,7 @@ function App() {
 
   return (
     <div>
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           { token ? <Route path="/" element={<Dashboard />} />:<Route path="/" element={<SIGNIN />} /> }
           <Route path="/signin" element={<SIGNIN />} />
@@ -36,7 +36,7 @@ function App() {
           <Route path = "/checkout" element={<CHECKOUTPAGE/>} />
           <Route path = "/userorders" element={<OrderPage/>} />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 }
