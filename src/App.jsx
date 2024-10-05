@@ -17,13 +17,7 @@ import CHECKOUTPAGE from './pages/CheckOutPage'
 
 function App() {
   const token = localStorage.getItem('token');
-
-  const isAdmin = (token) => {
-    if (token.isAdmin){
-      return true;
-    }
-    return false;
-  };
+;
 
   return (
     <div>
@@ -41,11 +35,6 @@ function App() {
           <Route path = "/Users" element={<USERS/>} />
           <Route path = "/checkout" element={<CHECKOUTPAGE/>} />
           <Route path = "/userorders" element={<OrderPage/>} />
-          { isAdmin(token) ? (
-            <Route path="/admin" element={<ADMINPROFILEPAGE />} />
-          ) : (
-            <Route path="/" element={<SIGNIN />} /> // Redirect if trying to access /admin without a token
-          )}
         </Routes>
       </HashRouter>
     </div>
