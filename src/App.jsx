@@ -1,23 +1,24 @@
 import { useState } from 'react'
 import './App.css'
-import SIGNUP, { SignupPage } from './pages/Signup'
-import SIGNIN, { SigninPage } from './pages/Signin'
+import SIGNUP from './pages/Signup'
+import SIGNIN from './pages/Signin'
 import { HashRouter, Route, Routes } from 'react-router-dom'
 import { Dashboard } from './pages/Dashboard'
 import PRODUCT  from './pages/ProductPage'
 import PROFILEPAGE from './pages/UserProfilePage'
 import CARTPAGE from './pages/CartPage'
-import OrderPage from './pages/userOrders'
+import OrderPage from './pages/Myorders'
 
 import ADMINPROFILEPAGE from './pages/AdminProfilePage'
 import Orders from './components/Orders'
 import USERS from './components/Users'
-import CHECKOUTPAGE from './pages/CheckOutPage'
+import CHECKOUTPAGE, { CheckOutPage } from './pages/CheckOutPage'
+import MYORDERSPAGE from './pages/Myorders'
 
 
 function App() {
   const token = localStorage.getItem('token');
-;
+
 
   return (
     <div>
@@ -34,7 +35,7 @@ function App() {
           <Route path = "/orders" element={<Orders/>} />
           <Route path = "/Users" element={<USERS/>} />
           <Route path = "/checkout" element={<CHECKOUTPAGE/>} />
-          <Route path = "/userorders" element={<OrderPage/>} />
+          <Route path = "/myorders" element={<MYORDERSPAGE/>} />
         </Routes>
       </HashRouter>
     </div>

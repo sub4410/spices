@@ -4,7 +4,7 @@ import { Topbar } from "../components/topbar";
 import { CartComponent } from "../components/CartComponent";
 import { spiceAtom } from "../assets/spices";
 import { cartAtom } from "../atoms/CartAtom";
-import ORDERSUMMARY, { OrderSummaryComponent } from "../components/OrderSummaryComponent";
+import ORDERSUMMARY from "../components/OrderSummaryComponent";
 
 
 export function CartPage() {

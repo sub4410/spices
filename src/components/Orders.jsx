@@ -12,7 +12,7 @@ function Orders() {
     const [selectedStatus, setSelectedStatus] = useState({});
     
     // Options for the delivery status dropdown
-    const statusOptions = ["pending", "shipped", "confirmed", "cancelled"];
+    const statusOptions = ["pending", "confirmed", "cancelled"];
 
     // Function to fetch consumer data from the API when the component loads
     useEffect(() => {
@@ -65,6 +65,7 @@ function Orders() {
         axios.put('https://organicspices.azurewebsites.net/api/order_status', payload, config)
             .then(response => {
                 console.log("Status Changed to", response.data);
+                alert("Order Status Changed successfully");
             })
             .catch(error => {
                 console.error("There was an error updating the product status!", error);

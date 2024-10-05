@@ -6,7 +6,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export function AdminProfilePage() {
-
+    // Recoil state for user info
+    const userinfo = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null;
       const navigate = useNavigate();
       
       const goToOrders = () => {
@@ -22,7 +23,7 @@ export function AdminProfilePage() {
             <Topbar />
             <div className="m-5 shadow-lg h-screen">
                 <div className="m-10 mb-4 font-bold text-3xl">
-                    Welcome Admin
+                    Welcome Admin {userinfo.username}
                 </div>
                 <div className="flex flex-col md:flex-row">
                     <div className="m-10 mt-0 w-[200px] h-[200px] flex flex-col gap-10">

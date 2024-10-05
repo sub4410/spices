@@ -35,7 +35,7 @@ export function ProductPage() {
           return updatedItems;
         } else {
           // If the product is not in the cart, add it as a new item
-          return [...prevItems, { id: parseInt(id), quantity: quantity, price: product['Price per Unit ($)']}];
+          return [...prevItems, { id: parseInt(id),productName: product['Product Name'] , quantity: quantity, price: product['Price per Unit ($)']}];
         }
       });
   
@@ -74,10 +74,10 @@ export function ProductPage() {
                 {product['Brand Name']}
               </div>
 
-              <div className="mt-3 flex items-center gap-2">
-                <Rating value={4} className="text-amber-500" />
+              <div className="mt-3 text-sm  flex items-center gap-2">
+                Product Rating -
                 <Typography className="!text-sm font-bold !text-gray-700">
-                  {product['Customer Rating (out of 5)']} ({product['Number of Reviews']})
+                  {product['Customer Rating (out of 5)']}/5 ({product['Number of Reviews']})
                 </Typography>
               </div>
 
@@ -91,7 +91,7 @@ export function ProductPage() {
                 <div className="mt-1 flex text-sm md:text-base font-light">
                   Price per unit:
                   <div className="ml-2 font-bold text-red-700">
-                    ${product['Price per Unit ($)']}
+                    ${parseFloat(product['Price per Unit ($)']).toFixed(2)}
                   </div>
                 </div>
               </Typography>
