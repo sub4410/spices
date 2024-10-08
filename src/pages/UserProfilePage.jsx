@@ -24,7 +24,7 @@ export function ProfilePage() {
     return (
         <div>
             <Topbar />
-            <div className="m-5 shadow-lg h-screen">
+            <div className="m-5  h-screen">
                 <div className="m-10 mb-4 font-bold text-3xl">
                     {/* Check if userdata exists and display the username */}
                     {userinfo ? userinfo.username : "Guest"}

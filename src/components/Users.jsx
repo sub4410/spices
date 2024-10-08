@@ -44,7 +44,7 @@ export function Users() {
     return (
         <div>
             <Topbar />
-            <div className="m-5 shadow-lg h-screen">
+            <div className="h-screen">
                 <div className="m-10 mb-4 font-bold text-3xl">
                     Welcome Admin
                 </div>

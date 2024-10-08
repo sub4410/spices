@@ -10,7 +10,7 @@ export function SigninPage() {
     const [password, setPassword] = useRecoilState(userpassword);
     const [errorMessage, setErrorMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false); // Loading state
-
+    const [userInfo, setUserInfo] = useState(null);
     const handleSignin = async () => {
         // Clear error message
         setErrorMessage('');
@@ -35,6 +35,7 @@ export function SigninPage() {
                     // Store the token and user info in localStorage
                     localStorage.setItem('token', res.data.token);
                     localStorage.setItem('userInfo', JSON.stringify(res.data.user));
+                    setUserInfo(res.data.user);
                     if (res.data.user.isAdmin == true) {
                         // Redirect to the admin #ashboard after successful login
                         window.location.href = '/#/admin';
