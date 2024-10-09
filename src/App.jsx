@@ -15,6 +15,7 @@ import MYORDERSPAGE from './pages/Myorders'
 import { RecoilRoot, useRecoilState } from 'recoil'
 import { userDetailAtom } from './atoms/userAtom'
 import { useEffect } from 'react'
+import { Error404Page } from './pages/Error404Page'
 
 function App() {
   const token = localStorage.getItem('token');
@@ -38,7 +39,7 @@ function App() {
   
   return (
     <div>
-      <HashRouter>
+      <HashRouter>    
         <Routes>
           {/* Conditionally render based on token and isAdmin */}
           { token ? (
@@ -67,6 +68,7 @@ function App() {
               <Route path="/Users" element={<USERS />} />
             </>
           )}
+          <Route path="*" element={<Error404Page />} />
         </Routes>
       </HashRouter>
     </div>
