@@ -70,7 +70,7 @@ export function SigninPage() {
             <div className="w-full flex flex-wrap">
                 {/* Login Section */}
                 <div className="w-full md:w-1/2 flex flex-col">
-                    <div className="flex bg-gray-50 rounded shadow-lg mx-auto h-auto w-11/12 md:w-3/4 lg:w-3/4 flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-0">
+                    <div className="flex bg-gray-50 rounded shadow-lg mx-auto h-auto w-11/12 md:w-3/4 lg:w-3/4 flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-8 lg:px-0">
                         <p className="text-center text-3xl mt-10">Welcome !</p>
                         <form className="flex flex-col pt-3 md:px-8" onSubmit={(e) => e.preventDefault()}>
                             <div className="flex flex-col pt-4">
