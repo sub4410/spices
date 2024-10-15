@@ -18,8 +18,8 @@ export function CartPage() {
       ...product,
       quantity: cartItem.quantity,
     };
-  });
 
+  });
   // Calculate total sum dynamically
   const Totalsum = useMemo(() => {
     return cartItems.reduce((acc, item) => {
