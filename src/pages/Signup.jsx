@@ -4,7 +4,8 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import spicesbg from '../assets/spicesbg.jpg';
-
+import { Toaster, toast } from 'react-hot-toast';
+import PasswordInfo from "../components/PasswordInfo";  
 export function SignupPage() {
     const [usernames, setUsername] = useRecoilState(username);
     const [password, setPassword] = useRecoilState(userpassword);
@@ -12,76 +13,87 @@ export function SignupPage() {
     const [email, setEmail] = useRecoilState(userEmail);
     const [errorMessage, setErrorMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false); // Loading state
-
+    const [showPasswordInfo, setShowPasswordInfo] = useState(false); // State to show/hide password info
     const navigate = useNavigate();
 
     const handleSignup = () => {
-      // Clear error message
-      setErrorMessage('');
-  
-      // Validate email format using regex
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  
-      // Validate password strength using regex
-      const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
-  
-      // Check for empty fields and validate inputs
-      if (!usernames || !email || !password || !confirmPassword) {
-          setErrorMessage('Please fill out all fields.');
-          return;
-      } else if (!emailRegex.test(email)) {
-          setErrorMessage('Please enter a valid email address.');
-          return;
-      } else if (!passwordRegex.test(password)) {
-          setErrorMessage(
-              'Password must be at least 8 characters long, include at least one uppercase letter, one number, and one special character.'
-          );
-          return;
-      } else if (password !== confirmPassword) {
-          setErrorMessage('Passwords do not match.');
-          return;
-      }
-  
-      // If all validations pass, start loading
-      setIsLoading(true);
-  
-      // Proceed with signup
-      try {
-          axios
-              .post("https://organicspices.azurewebsites.net/api/signup?", {
-                  "username": usernames,
-                  "password": password,
-                  "email": email
-              })
-              .then(response => {
-                  if (!response.data.token || response.data.token === '') {
-                      setErrorMessage(response.data); // Display actual backend message
-                      setIsLoading(false); // Stop loading if there is an error
-                  } else {
-                      localStorage.setItem('token', response.data.token);
-                      localStorage.setItem('userInfo', JSON.stringify(response.data.user));
-                      
-                      // Redirect to the dashboard after successful signup
-                      setTimeout(() => {
-                          navigate('/dashboard');
-                      }, 2000); // Simulating a slight delay
-                  }
-              })
-              .catch(error => {
-                  // Handle error response from backend
-                  if (error.response && error.response.data && error.response.data) {
-                      setErrorMessage(error.response.data); // Correctly set the backend error message
-                  } else {
-                      setErrorMessage('Error signing up. Please try again.');
-                  }
-                  setIsLoading(false); // Stop loading in case of error
-              });
-      } catch (err) {
-          setErrorMessage('An unexpected error occurred.');
-          setIsLoading(false); // Stop loading if there is an error
-      }
-  };
-  
+        // Clear error message
+        setErrorMessage('');
+
+        // Validate email format using regex
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        // Validate password strength using regex
+        const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
+
+        // Check for empty fields and validate inputs
+        if (!usernames || !email || !password || !confirmPassword) {
+            setErrorMessage('Please fill out all fields.');
+            toast.error('Please fill out all fields.');
+            return;
+        } else if (!emailRegex.test(email)) {
+            setErrorMessage('Please enter a valid email address.');
+            toast.error('Please enter a valid email address.');
+            return;
+        } else if (!passwordRegex.test(password)) {
+            setErrorMessage(
+                'Password must be at least 8 characters long, include at least one uppercase letter, one number, and one special character.'
+            );
+            toast.error(
+                'Password must be at least 8 characters long, include at least one uppercase letter, one number, and one special character.'
+            );
+            return;
+        } else if (password !== confirmPassword) {
+            setErrorMessage('Passwords do not match.');
+            toast.error('Passwords do not match.');
+            return;
+        }
+
+        // If all validations pass, start loading
+        setIsLoading(true);
+        const loadingToastId = toast.loading('Signing up...');
+
+        // Proceed with signup
+        try {
+            axios
+                .post("https://organicspices.azurewebsites.net/api/signup?", {
+                    "username": usernames,
+                    "password": password,
+                    "email": email
+                })
+                .then(response => {
+                    if (!response.data.token || response.data.token === '') {
+                        setErrorMessage(response.data); // Display actual backend message
+                        toast.error(response.data, { id: loadingToastId });
+                        setIsLoading(false); // Stop loading if there is an error
+                    } else {
+                        localStorage.setItem('token', response.data.token);
+                        localStorage.setItem('userInfo', JSON.stringify(response.data.user));
+                        toast.success('Signup successful!', { id: loadingToastId });
+
+                        // Redirect to the dashboard after successful signup
+                        setTimeout(() => {
+                            navigate('/dashboard');
+                        }, 2000); // Simulating a slight delay
+                    }
+                })
+                .catch(error => {
+                    // Handle error response from backend
+                    if (error.response && error.response.data && error.response.data) {
+                        setErrorMessage(error.response.data); // Correctly set the backend error message
+                        toast.error(error.response.data, { id: loadingToastId });
+                    } else {
+                        setErrorMessage('Error signing up. Please try again.');
+                        toast.error('Error signing up. Please try again.', { id: loadingToastId });
+                    }
+                    setIsLoading(false); // Stop loading in case of error
+                });
+        } catch (err) {
+            setErrorMessage('An unexpected error occurred.');
+            toast.error('An unexpected error occurred.', { id: loadingToastId });
+            setIsLoading(false); // Stop loading if there is an error
+        }
+    };
 
     return (
         <div
@@ -92,6 +104,7 @@ export function SignupPage() {
                 backgroundPosition: "center",
             }}
         >
+            <Toaster /> {/* Add Toaster component */}
             {/* Main content container */}
             <div className="w-full max-w-md p-8 bg-white rounded-lg opacity-93 shadow-lg">
                 {/* Logo */}
@@ -145,6 +158,8 @@ export function SignupPage() {
                                 placeholder="Password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
+                                onFocus={() => setShowPasswordInfo(true)} // Show password info on focus
+                                onBlur={() => setShowPasswordInfo(false)} // Hide password info on blur
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
                             />
                         </div>
@@ -160,8 +175,11 @@ export function SignupPage() {
                                 placeholder="Confirm Password"
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
+                                onFocus={() => setShowPasswordInfo(true)} // Show password info on focus
+                                onBlur={() => setShowPasswordInfo(false)} // Hide password info on blur
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
                             />
+                            {showPasswordInfo && <PasswordInfo />} {/* Show PasswordInfo component */}
                         </div>
 
                         {/* Error Message */}

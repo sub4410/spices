@@ -4,6 +4,8 @@ import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import spicesside from '../assets/spices.jpg';
+import { Toaster, toast } from 'react-hot-toast';
+import PasswordInfo from '../components/PasswordInfo'; // Import PasswordInfo component
 
 export function SigninPage() {
     const [userEmail, setUserEmail] = useState('');
@@ -11,6 +13,8 @@ export function SigninPage() {
     const [errorMessage, setErrorMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false); // Loading state
     const [userInfo, setUserInfo] = useState(null);
+    const [showPasswordInfo, setShowPasswordInfo] = useState(false); // State to show/hide password info
+
     const handleSignin = async () => {
         // Clear error message
         setErrorMessage('');
@@ -18,11 +22,13 @@ export function SigninPage() {
         // Validate inputs
         if (!userEmail || !password) {
             setErrorMessage('Please enter both email and password.');
+            toast.error('Please enter both email and password.');
             return;
         }
 
         // Start loading
         setIsLoading(true);
+        const loadingToastId = toast.loading('Signing in...');
 
         // Handle signin
         try {
@@ -36,8 +42,9 @@ export function SigninPage() {
                     localStorage.setItem('token', res.data.token);
                     localStorage.setItem('userInfo', JSON.stringify(res.data.user));
                     setUserInfo(res.data.user);
+                    toast.success('Login successful!', { id: loadingToastId });
                     if (res.data.user.isAdmin == true) {
-                        // Redirect to the admin #ashboard after successful login
+                        // Redirect to the admin dashboard after successful login
                         window.location.href = '/#/admin';
                     }
                     else{
@@ -47,6 +54,7 @@ export function SigninPage() {
                 } else {
                     // Handle error response from the backend
                     setErrorMessage(res.data.message || 'Login failed. Please try again.');
+                    toast.error(res.data.message || 'Login failed. Please try again.', { id: loadingToastId });
                     setIsLoading(false);
                 }
             })
@@ -54,19 +62,23 @@ export function SigninPage() {
                 // Handle errors from the backend
                 if (error.response && error.response.data && error.response.data.message) {
                     setErrorMessage(error.response.data.message);
+                    toast.error(error.response.data.message, { id: loadingToastId });
                 } else {
                     setErrorMessage('An error occurred. Please try again.');
+                    toast.error('An error occurred. Please try again.', { id: loadingToastId });
                 }
                 setIsLoading(false);
             });
         } catch (error) {
             setErrorMessage('An unexpected error occurred.');
+            toast.error('An unexpected error occurred.', { id: loadingToastId });
             setIsLoading(false);
         }
     };
 
     return (
         <div className="bg-white font-family-karla h-screen">
+            <Toaster /> {/* Add Toaster component */}
             <div className="w-full flex flex-wrap">
                 {/* Login Section */}
                 <div className="w-full md:w-1/2 flex flex-col">
@@ -98,7 +110,10 @@ export function SigninPage() {
                                     placeholder="Password"
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
                                     disabled={isLoading} // Disable input during loading
+                                    onFocus={() => setShowPasswordInfo(true)} // Show password info on focus
+                                    onBlur={() => setShowPasswordInfo(false)} // Hide password info on blur
                                 />
+                                {showPasswordInfo && <PasswordInfo />} {/* Show PasswordInfo component */}
                             </div>
                         </form>
 

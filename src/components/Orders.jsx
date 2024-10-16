@@ -133,14 +133,14 @@ function Orders() {
                                             ))
                                         ) : (
                                             consumers.map((consumer, index) => (
-                                                <tr key={consumer._id} className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-100'}`}>
-                                                    <td className="px-4 font-medium py-2 border border-gray-300">
+                                                <tr key={consumer._id} className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-100'} font-normal`}>
+                                                    <td className="px-4  py-2 border border-gray-300">
                                                         {consumer.shippingDetails.name}
                                                     </td>
-                                                    <td className="px-4 py-2 font-medium border border-gray-300">
+                                                    <td className="px-4 py-2  border border-gray-300">
                                                         {consumer.placedAt.split(' ')[0]}
                                                     </td>
-                                                    <td className="px-4 py-2 font-medium border border-gray-300">
+                                                    <td className="px-4 py-2  border border-gray-300">
                                                         {consumer.orderItems.map(item => (
                                                             <div key={item.productId} className="flex justify-between items-center mb-3">
                                                                 <div>{item.productName} x {item.quantity}</div>

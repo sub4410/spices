@@ -10,40 +10,36 @@ import 'react-loading-skeleton/dist/skeleton.css';
 
 export function Users() {
     const [consumers, setConsumers] = useState([]);
-    const [loading, setLoading] = useState(true); // State to manage loading
+    const [loading, setLoading] = useState(true);
 
-    // Function to fetch consumer data from the API when the component loads
     useEffect(() => {
-
         const token = localStorage.getItem('token');
 
-        // Configure headers to include the token
         const config = {
             headers: {
-                Authorization: `Bearer ${token}` // Assuming you are using Bearer token for authentication
+                Authorization: `Bearer ${token}`
             }
         };
 
         axios.get('https://organicspices.azurewebsites.net/api/all-users', config)
             .then(response => {
-                // Set the fetched consumer data to the state
                 setConsumers(response.data);
-                setLoading(false); // Stop loading once the data is fetched
+                setLoading(false);
             })
             .catch(error => {
                 console.error("There was an error fetching the consumers!", error);
-                setLoading(false); // Stop loading in case of an error
+                setLoading(false);
             });
     }, []);
 
     const navigate = useNavigate();
     
     const goToOrders = () => {
-        navigate('/orders'); // Navigates to the order list page
+        navigate('/orders');
     };
 
     const goTodashboard = () => {
-        navigate('/admin'); // Navigates to the admin dashboard
+        navigate('/admin');
     };
 
     return (
@@ -53,8 +49,8 @@ export function Users() {
                 <div className="m-10 mb-4 font-bold text-3xl">
                     Welcome Admin
                 </div>
-                <div className="flex flex-col md:flex-row">
-                    <div className="m-10 mt-0 w-[200px] h-[200px] flex flex-col gap-10">
+                <div className=" flex-col md:flex-row">
+                    <div className="m-10 mt-0 w-[200px]  flex flex-col gap-10">
                         <button 
                             onClick={goToOrders}
                             className="border px-3 py-1 rounded-lg bg-orange-400 font-medium hover:bg-orange-300 text-white">
@@ -69,19 +65,17 @@ export function Users() {
                     <div className="flex-grow p-10 pt-0">
                         <div className="text-xl mb-5 font-bold"><br />
                             <div className="font-light text-lg w-100 h-[200px] flex-row gap-10">
-                                <h1 className="font-bold">Users</h1>
-                                <table className="min-w-full table-auto border-collapse border border-gray-300">
+                                <table className="min-w-full font-normal table-auto border-collapse rounded-lg overflow-hidden shadow-lg">
                                     <thead>
-                                        <tr>
-                                            <th className="px-4 py-2 border border-gray-300">Customer Name</th>
-                                            <th className="px-4 py-2 border border-gray-300">Email</th>
+                                        <tr className="bg-gray-800 text-white">
+                                            <th className="px-4 py-2 border border-gray-300 rounded-tl-lg">Customer Name</th>
+                                            <th className="px-4 py-2 border border-gray-300 rounded-tr-lg">Email</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {loading ? (
-                                            // Show skeleton loading state while data is being fetched
                                             Array(5).fill().map((_, index) => (
-                                                <tr key={index}>
+                                                <tr key={index} className={`bg-${index % 2 === 0 ? 'white' : 'gray-100'}`}>
                                                     <td className="px-4 py-2 border border-gray-300">
                                                         <Skeleton width={150} />
                                                     </td>
@@ -91,13 +85,13 @@ export function Users() {
                                                 </tr>
                                             ))
                                         ) : (
-                                            consumers.map(consumer => (
-                                                <tr key={consumer._id}>
-                                                    <td className="px-4 py-2 border border-gray-300">
-                                                        {consumer.username} {/* Render username */}
+                                            consumers.map((consumer, index) => (
+                                                <tr key={consumer._id} className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-100'}`}>
+                                                    <td className="px-4 py-2 border border-gray-300 r">
+                                                        {consumer.username}
                                                     </td>
-                                                    <td className="px-4 py-2 border border-gray-300">
-                                                        {consumer.email} {/* Render email */}
+                                                    <td className="px-4 py-2 border border-gray-300 ">
+                                                        {consumer.email}
                                                     </td>
                                                 </tr>
                                             ))
