@@ -189,13 +189,6 @@ export function SignupPage() {
                             </div>
                         )}
 
-                        {/* Loading Message */}
-                        {isLoading && (
-                            <div className="text-blue-500 text-sm font-bold mt-4">
-                                Signing up... Redirecting to your dashboard...
-                            </div>
-                        )}
-
                         {/* Sign Up Button */}
                         <button
                             onClick={handleSignup}
@@ -207,7 +200,7 @@ export function SignupPage() {
                     </form>
 
                     {/* Sign In Link */}
-                    <div className="text-center pt-12 pb-12">
+                    <div className="text-center pt-5 ">
                         <p>
                             Already have an account?{" "}
                             <Link to="/signin" className="underline font-semibold">

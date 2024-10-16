@@ -20,8 +20,7 @@ export function SigninPage() {
         setErrorMessage('');
 
         // Validate inputs
-        if (!userEmail || !password) {
-            setErrorMessage('Please enter both email and password.');
+        if (!userEmail || !password) {;
             toast.error('Please enter both email and password.');
             return;
         }
@@ -53,7 +52,6 @@ export function SigninPage() {
                     }
                 } else {
                     // Handle error response from the backend
-                    setErrorMessage(res.data.message || 'Login failed. Please try again.');
                     toast.error(res.data.message || 'Login failed. Please try again.', { id: loadingToastId });
                     setIsLoading(false);
                 }
@@ -64,7 +62,6 @@ export function SigninPage() {
                     setErrorMessage(error.response.data.message);
                     toast.error(error.response.data.message, { id: loadingToastId });
                 } else {
-                    setErrorMessage('An error occurred. Please try again.');
                     toast.error('An error occurred. Please try again.', { id: loadingToastId });
                 }
                 setIsLoading(false);
@@ -124,13 +121,6 @@ export function SigninPage() {
                             </div>
                         )}
 
-                        {/* Loading Message */}
-                        {isLoading && (
-                            <div className="text-blue-500 text-sm font-bold mt-4">
-                                Signing in...
-                            </div>
-                        )}
-
                         <div>
                             <SigninButton email={userEmail} password={password} isLoading={isLoading} handleSignin={handleSignin} />
                         </div>
@@ -162,7 +152,7 @@ export function SigninPage() {
     );
 }
 
-function SigninButton({ email, password, isLoading, handleSignin }) {
+function SigninButton({ isLoading, handleSignin }) {
     return (
         <div className="mt-3">
             <div className="flex justify-center px-8 rounded-lg">
