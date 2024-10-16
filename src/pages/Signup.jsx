@@ -6,6 +6,8 @@ import { useNavigate, Link } from "react-router-dom";
 import spicesbg from '../assets/spicesbg.jpg';
 import { Toaster, toast } from 'react-hot-toast';
 import PasswordInfo from "../components/PasswordInfo";  
+import { BsEyeSlash, BsEye } from "react-icons/bs"; // Import eye icons
+import styled from "styled-components"; // Import styled-components
 export function SignupPage() {
     const [usernames, setUsername] = useRecoilState(username);
     const [password, setPassword] = useRecoilState(userpassword);
@@ -15,6 +17,12 @@ export function SignupPage() {
     const [isLoading, setIsLoading] = useState(false); // Loading state
     const [showPasswordInfo, setShowPasswordInfo] = useState(false); // State to show/hide password info
     const navigate = useNavigate();
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleShowPassword = () => {
+        setShowPassword(!showPassword);
+    }
+
 
     const handleSignup = () => {
         // Clear error message
@@ -122,14 +130,24 @@ export function SignupPage() {
                             <label htmlFor="username" className="text-lg">
                                 Username
                             </label>
-                            <input
+                            <SearchWrapper>
+                                    <SearchInput
+                                        type="text"
+                                        id="username"
+                                        placeholder="Username"
+                                        value={usernames}
+                                        onChange={(e) => setUsername(e.target.value)}
+                                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
+                                    />
+                                </SearchWrapper>
+                            {/* <input
                                 type="text"
                                 id="username"
                                 placeholder="Username"
                                 value={usernames}
                                 onChange={(e) => setUsername(e.target.value)}
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
-                            />
+                            /> */}
                         </div>
 
                         {/* Email */}
@@ -137,14 +155,24 @@ export function SignupPage() {
                             <label htmlFor="email" className="text-lg">
                                 Email
                             </label>
-                            <input
+                            <SearchWrapper>
+                                    <SearchInput
+                                        type="email"
+                                        id="email"
+                                        placeholder="Email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
+                                    />
+                                </SearchWrapper>
+                            {/* <input
                                 type="email"
                                 id="email"
                                 placeholder="Email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
-                            />
+                            /> */}
                         </div>
 
                         {/* Password */}
@@ -152,7 +180,22 @@ export function SignupPage() {
                             <label htmlFor="password" className="text-lg">
                                 Password
                             </label>
-                            <input
+                            <SearchWrapper>
+                                    <SearchInput
+                                        type={showPassword ? "text" : "password"}
+                                        id="password"
+                                        placeholder="Password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        onFocus={() => setShowPasswordInfo(true)} // Show password info on focus
+                                        // onBlur={() => setShowPasswordInfo(false)} // Hide password info on blur
+                                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
+                                    />
+                                    <IconWrapper>
+                                        {showPassword ? <BsEyeSlash onClick={handleShowPassword} /> : <BsEye onClick={handleShowPassword} />}
+                                    </IconWrapper>
+                                </SearchWrapper>
+                            {/* <input
                                 type="password"
                                 id="password"
                                 placeholder="Password"
@@ -161,7 +204,7 @@ export function SignupPage() {
                                 onFocus={() => setShowPasswordInfo(true)} // Show password info on focus
                                 onBlur={() => setShowPasswordInfo(false)} // Hide password info on blur
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
-                            />
+                            /> */}
                         </div>
 
                         {/* Confirm Password */}
@@ -169,7 +212,22 @@ export function SignupPage() {
                             <label htmlFor="confirm-password" className="text-lg">
                                 Confirm Password
                             </label>
-                            <input
+                            <SearchWrapper>
+                                    <SearchInput
+                                        type={showPassword ? "text" : "password"}
+                                        id="confirm-password"
+                                        placeholder="Confirm Password"
+                                        value={confirmPassword}
+                                        onChange={(e) => setConfirmPassword(e.target.value)}
+                                        // onFocus={() => setShowPasswordInfo(true)} // Show password info on focus
+                                        // onBlur={() => setShowPasswordInfo(false)} // Hide password info on blur
+                                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
+                                    />
+                                    <IconWrapper>
+                                        {showPassword ? <BsEyeSlash onClick={handleShowPassword} /> : <BsEye onClick={handleShowPassword} />}
+                                    </IconWrapper>
+                                </SearchWrapper>
+                            {/* <input
                                 type="password"
                                 id="confirm-password"
                                 placeholder="Confirm Password"
@@ -178,16 +236,23 @@ export function SignupPage() {
                                 onFocus={() => setShowPasswordInfo(true)} // Show password info on focus
                                 onBlur={() => setShowPasswordInfo(false)} // Hide password info on blur
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
-                            />
+                            /> */}
                             {showPasswordInfo && <PasswordInfo />} {/* Show PasswordInfo component */}
                         </div>
 
                         {/* Error Message */}
-                        {errorMessage && (
+                        {/* {errorMessage && (
                             <div className="text-red-500 text-sm font-bold mt-4">
                                 {errorMessage}
                             </div>
-                        )}
+                        )} */}
+
+                        {/* Loading Message */}
+                        {/* {isLoading && (
+                            <div className="text-blue-500 text-sm font-bold mt-4">
+                                Signing up... Redirecting to your dashboard...
+                            </div>
+                        )} */}
 
                         {/* Sign Up Button */}
                         <button
@@ -200,7 +265,7 @@ export function SignupPage() {
                     </form>
 
                     {/* Sign In Link */}
-                    <div className="text-center pt-5 ">
+                    <div className="text-center pt-12 pb-12">
                         <p>
                             Already have an account?{" "}
                             <Link to="/signin" className="underline font-semibold">
@@ -221,3 +286,52 @@ export default function SIGNUP() {
         </RecoilRoot>
     );
 }
+// Styled Components
+const SearchWrapper = styled.div`
+  height: 44px;
+  width: 100%;
+  position: relative;
+`;
+
+const SearchInput = styled.input`
+  width: 100%;
+  height: inherit;
+  padding-left: 20px;
+  padding-right: 50px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  color: #1e1e2f;
+  border: 1px solid #EDEAE7;
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 46px 50px;
+  font-size: 14px;
+  transition: all 0.4s ease;
+
+  ::placeholder {
+    font-family: "Archia-Regular";
+    opacity: 0.5;
+    user-select: none;
+  }
+
+  :focus {
+    border: 1px solid #3B4859;
+    transition: all 0.4s ease;
+  }
+`;
+
+const IconWrapper = styled.div`
+  width: 2rem;
+  height: 100%;
+  position: absolute;
+  right: 10px;
+  top: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #383634;
+
+  svg {
+    width: 65%;
+    height: 100%;
+  }
+`;
