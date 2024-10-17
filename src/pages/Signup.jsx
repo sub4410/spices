@@ -117,7 +117,7 @@ export function SignupPage() {
             <div className="w-full max-w-md p-8 bg-white rounded-lg opacity-93 shadow-lg">
                 {/* Logo */}
                 <div className="flex justify-center mb-8">
-                    <a href="#" className="rounded-xl bg-black text-white font-bold text-xl p-4">
+                    <a href="/" className="rounded-xl bg-black text-white font-bold text-xl p-4">
                         Shri.Organic.Roots
                     </a>
                 </div>
@@ -265,7 +265,7 @@ export function SignupPage() {
                     </form>
 
                     {/* Sign In Link */}
-                    <div className="text-center pt-12 pb-12">
+                    <div className="text-center pt-4">
                         <p>
                             Already have an account?{" "}
                             <Link to="/signin" className="underline font-semibold">
