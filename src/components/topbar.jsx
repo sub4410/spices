@@ -36,12 +36,41 @@ export const Topbar = () => {
                 Shri.Organic.Roots.
               </a>
               {/* Nav Links */}
-              <ul className="hidden md:flex px-4 text-lg  mx-auto font-semibold font-heading space-x-12">
-                <li><a className="hover:text-gray-200 font-light" href="/#/dashboard">Home</a></li>
-                <li><a className="hover:text-gray-200 font-light" href="/#/myorders">My Orders</a></li>
-                <li><a className="hover:text-gray-200 font-light" href="#">Collections</a></li>
-                <li><a className="hover:text-gray-200 font-light" href="#">Contact Us</a></li>
+              <ul className="hidden md:flex px-4 text-lg mx-auto font-semibold font-heading space-x-12">
+                <li>
+                  <a 
+                    className="relative pb-1 font-light after:block after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-black after:transition-all after:duration-300 hover:after:w-full"
+                    href="/#/dashboard"
+                  >
+                    Home
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    className="relative pb-1 font-light  after:block after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-black after:transition-all after:duration-300 hover:after:w-full"
+                    href="/#/myorders"
+                  >
+                    My Orders
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    className="relative pb-1 font-light  after:block after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-black after:transition-all after:duration-300 hover:after:w-full"
+                    href="#"
+                  >
+                    Collections
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    className="relative pb-1 font-light  after:block after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-black after:transition-all after:duration-300 hover:after:w-full"
+                    href="#"
+                  >
+                    Contact Us
+                  </a>
+                </li>
               </ul>
+
               {/* Header Icons */}
               <div className="hidden xl:flex items-center space-x-5">
                 <a className="flex items-center hover:text-gray-200" href="/cart">

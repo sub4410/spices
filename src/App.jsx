@@ -1,7 +1,7 @@
 import './App.css'
 import SIGNUP from './pages/Signup'
 import SIGNIN from './pages/Signin'
-import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
+import { HashRouter, Route, Routes } from 'react-router-dom'
 import { Dashboard } from './pages/Dashboard'
 import PRODUCT from './pages/ProductPage'
 import PROFILEPAGE from './pages/UserProfilePage'
@@ -16,7 +16,7 @@ import { RecoilRoot, useRecoilState } from 'recoil'
 import { userDetailAtom } from './atoms/userAtom'
 import { useEffect } from 'react'
 import { Error404Page } from './pages/Error404Page'
-import { LandingPage } from './pages/LandingPage'
+import {LandingPage} from './pages/LandingPage'
 
 function App() {
   const token = localStorage.getItem('token');
@@ -37,10 +37,11 @@ function App() {
   console.log(userInfo);
   console.log(isAdmin);
 
+  
   return (
     <div>
-      <BrowserRouter>    
-        <Routes>
+      <HashRouter>    
+      <Routes>
           {/* Landing Page should always be accessible */}
           <Route path="/" element={<LandingPage />} />
 
@@ -78,7 +79,7 @@ function App() {
           {/* 404 Error Page */}
           <Route path="*" element={<Error404Page />} />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 }
