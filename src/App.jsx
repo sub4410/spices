@@ -1,7 +1,7 @@
 import './App.css'
 import SIGNUP from './pages/Signup'
 import SIGNIN from './pages/Signin'
-import { HashRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Dashboard } from './pages/Dashboard'
 import PRODUCT from './pages/ProductPage'
 import PROFILEPAGE from './pages/UserProfilePage'
@@ -39,7 +39,7 @@ function App() {
   
   return (
     <div>
-      <HashRouter>    
+      <BrowserRouter>    
         <Routes>
           {/* Conditionally render based on token and isAdmin */}
           { token ? (
@@ -70,7 +70,7 @@ function App() {
           )}
           <Route path="*" element={<Error404Page />} />
         </Routes>
-      </HashRouter>
+      </BrowserRouter>
     </div>
   );
 }
