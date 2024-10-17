@@ -40,7 +40,7 @@ export const Topbar = () => {
                 <li>
                   <a 
                     className="relative pb-1 font-light after:block after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-black  after:transition-all after:duration-300 hover:after:w-full"
-                    href="/#/dashboard"
+                    href="/dashboard"
                   >
                     Home
                   </a>
@@ -48,7 +48,7 @@ export const Topbar = () => {
                 <li>
                   <a 
                     className="relative pb-1 font-light  after:block after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-black after:transition-all after:duration-300 hover:after:w-full"
-                    href="/#/myorders"
+                    href="/myorders"
                   >
                     My Orders
                   </a>
