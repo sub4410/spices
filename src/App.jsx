@@ -55,6 +55,7 @@ function App() {
               ) : (
                 <Route path="/dashboard" element={<Dashboard />} />
               )}
+              <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/productpage/:id" element={<PRODUCT />} />
               <Route path="/Userprofile" element={<PROFILEPAGE />} />
               <Route path="/cart" element={<CARTPAGE />} />
