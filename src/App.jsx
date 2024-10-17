@@ -1,7 +1,7 @@
 import './App.css'
 import SIGNUP from './pages/Signup'
 import SIGNIN from './pages/Signin'
-import { HashRouter, Route, Routes } from 'react-router-dom'
+import { HashRouter, Route, Routes, Navigate } from 'react-router-dom'
 import { Dashboard } from './pages/Dashboard'
 import PRODUCT from './pages/ProductPage'
 import PROFILEPAGE from './pages/UserProfilePage'
@@ -16,6 +16,7 @@ import { RecoilRoot, useRecoilState } from 'recoil'
 import { userDetailAtom } from './atoms/userAtom'
 import { useEffect } from 'react'
 import { Error404Page } from './pages/Error404Page'
+import { LandingPage } from './pages/LandingPage'
 
 function App() {
   const token = localStorage.getItem('token');
@@ -36,38 +37,45 @@ function App() {
   console.log(userInfo);
   console.log(isAdmin);
 
-  
   return (
     <div>
       <HashRouter>    
         <Routes>
-          {/* Conditionally render based on token and isAdmin */}
-          { token ? (
-            isAdmin ? (
-              <Route path="/" element={<ADMINPROFILEPAGE />} />
-            ) : (
-              <Route path="/" element={<Dashboard />} />
-            )
-          ) : (
-            <Route path="/" element={<SIGNIN />} />
-          )}
+          {/* Landing Page should always be accessible */}
+          <Route path="/" element={<LandingPage />} />
+
+          {/* Public Routes */}
           <Route path="/signin" element={<SIGNIN />} />
           <Route path="/signup" element={<SIGNUP />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/productpage/:id" element={<PRODUCT />} />
-          <Route path="/Userprofile" element={<PROFILEPAGE />} />
-          <Route path="/cart" element={<CARTPAGE />} />
-          <Route path="/checkout" element={<CHECKOUTPAGE />} />
-          <Route path="/myorders" element={<MYORDERSPAGE />} />
-
-          {/* Admin Routes */}
-          {isAdmin && (
+          
+          {/* Protected Routes */}
+          { token ? (
             <>
-              <Route path="/admin" element={<ADMINPROFILEPAGE />} />
-              <Route path="/orders" element={<Orders />} />
-              <Route path="/Users" element={<USERS />} />
+              {isAdmin ? (
+                <Route path="/admin" element={<ADMINPROFILEPAGE />} />
+              ) : (
+                <Route path="/dashboard" element={<Dashboard />} />
+              )}
+              <Route path="/productpage/:id" element={<PRODUCT />} />
+              <Route path="/Userprofile" element={<PROFILEPAGE />} />
+              <Route path="/cart" element={<CARTPAGE />} />
+              <Route path="/checkout" element={<CHECKOUTPAGE />} />
+              <Route path="/myorders" element={<MYORDERSPAGE />} />
+
+              {/* Admin-specific Routes */}
+              {isAdmin && (
+                <>
+                  <Route path="/orders" element={<Orders />} />
+                  <Route path="/users" element={<USERS />} />
+                </>
+              )}
             </>
+          ) : (
+            // Redirect to sign-in if the user tries to access protected routes without a token
+            <Route path="/dashboard" element={<Navigate to="/signin" />} />
           )}
+
+          {/* 404 Error Page */}
           <Route path="*" element={<Error404Page />} />
         </Routes>
       </HashRouter>

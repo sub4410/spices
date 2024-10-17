@@ -29,18 +29,18 @@ export const Topbar = () => {
       <div className="flex flex-wrap place-items-center w-screen ">
         <section className="relative mx-auto w-screen">
           {/* Navbar */}
-          <nav className="flex justify-between bg-gray-900 text-white w-screen">
+          <nav className="flex justify-between bg-orange-200 text-black w-screen">
             <div className="px-5 xl:px-12 py-6 flex w-full items-center w-screen">
               <a className="text-3xl font-bold font-heading" href="/#/dashboard">
                 {/* <img className="h-9" src="logo.png" alt="logo"> */}
                 Shri.Organic.Roots.
               </a>
               {/* Nav Links */}
-              <ul className="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-12">
-                <li><a className="hover:text-gray-200" href="/#/dashboard">Home</a></li>
-                <li><a className="hover:text-gray-200" href="/#/myorders">My Orders</a></li>
-                <li><a className="hover:text-gray-200" href="#">Collections</a></li>
-                <li><a className="hover:text-gray-200 text-yellow-200" href="#">Contact Us</a></li>
+              <ul className="hidden md:flex px-4 text-lg  mx-auto font-semibold font-heading space-x-12">
+                <li><a className="hover:text-gray-200 font-light" href="/#/dashboard">Home</a></li>
+                <li><a className="hover:text-gray-200 font-light" href="/#/myorders">My Orders</a></li>
+                <li><a className="hover:text-gray-200 font-light" href="#">Collections</a></li>
+                <li><a className="hover:text-gray-200 font-light" href="#">Contact Us</a></li>
               </ul>
               {/* Header Icons */}
               <div className="hidden xl:flex items-center space-x-5">
@@ -102,7 +102,7 @@ export const Topbar = () => {
                   <a href="#" className="block text-white py-2 md:py-0 hover:bg-gray-900 px-4">Services</a>
               </li>
               <li className="text-center md:text-left">
-                  <a href="#" className="block text-white py-2 md:py-0 hover:bg-gray-900 px-4">Contact us</a>
+                  <a href="#" className="block text-black py-2 md:py-0 hover:bg-gray-900 px-4">Contact us</a>
               </li>
               <li>
               <a className="flex justify-center items-center hover:text-gray-200" href="/#/Userprofile">

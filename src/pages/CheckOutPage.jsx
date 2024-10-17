@@ -3,14 +3,15 @@ import { useRecoilValue, RecoilRoot } from "recoil";
 import { Topbar } from "../components/topbar";
 import { cartAtom } from "../atoms/CartAtom";
 import { spiceAtom } from "../assets/spices";
-import { Navigate, useNavigate } from 'react-router-dom'; // Import useNavigate for routing
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for routing
+import toast, { Toaster } from 'react-hot-toast';
 
 
 export function CheckOutPage() {
   const cartItems = useRecoilValue(cartAtom); // Now contains id and quantity
   const products = useRecoilValue(spiceAtom); // All available products
   const navigate = useNavigate(); 
-
+  
   // Local state for tracking checkbox and order status
   const [isChecked, setIsChecked] = useState(false); // Track if the checkbox is checked
   const [orderStatus, setOrderStatus] = useState(''); // Track order status
@@ -84,7 +85,15 @@ export function CheckOutPage() {
       if (response.ok) {
         const data = await response.json();
         setOrderStatus('Order placed successfully!');
-        alert('Order placed successfully!');
+        toast.success('Order placed successfully!', {
+          icon: '✅', // Or you can use an SVG like <CheckCircleIcon className="h-6 w-6 text-green-500" />
+          duration: 3000, // Show success message for 3 seconds
+          style: {
+            border: '1px solid #4CAF50',
+            padding: '16px',
+            color: '#4CAF50',
+          },
+        });
   
         // Clear all items in localStorage except for the token
         Object.keys(localStorage).forEach((key) => {
@@ -96,23 +105,26 @@ export function CheckOutPage() {
         // Use setTimeout to navigate to the dashboard after the alert
         setTimeout(() => {
           navigate('/dashboard'); // Redirect after alert
-        }, 100); // Small delay to ensure the alert is handled
+        }, 3000); // Small delay to ensure the alert is handled
 
       } else {
         const error = await response.json();
         setOrderStatus('Order failed: ' + error.message);
-        alert('Order failed: ' + error.message);
+        toast.error('Order failed: ' + error.message, { duration: 5000 });
+      
       }
     } catch (error) {
       console.error('Error placing order:', error);
       setOrderStatus('Order failed: ' + error.message);
-      alert('Order failed: ' + error.message);
+      toast.error('Order failed: ' + error.message, { duration: 5000 });
+    
     }
   };
   
 
   return (
     <div>
+      <Toaster />
       <div>
         <Topbar />
       </div>
