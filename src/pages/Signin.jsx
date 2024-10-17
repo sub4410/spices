@@ -52,11 +52,11 @@ export function SigninPage() {
                     toast.success('Login successful!', { id: loadingToastId });
                     if (res.data.user.isAdmin == true) {
                         // Redirect to the admin dashboard after successful login
-                        window.location.href = '/#/admin';
+                        window.location.href = '/admin';
                     }
                     else{
                     // Redirect to the dashboard after successful login
-                    window.location.href = '/#/dashboard';
+                    window.location.href = '/dashboard';
                     }
                 } else {
                     // Handle error response from the backend
