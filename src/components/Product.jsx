@@ -3,7 +3,7 @@ import nutmegt from '../assets/products/nutmeg.png';
 export default function ProductTile({ id, name, price, category, rating, brandName }) {
     return (
         <div className="relative group m-5 bg-gray-50 shadow-md rounded-lg overflow-hidden transition-transform duration-300 transform hover:scale-105">
-            <a href={`/#/productpage/${id}`}>
+            <a href={`/productpage/${id}`}>
             <div className="overflow-hidden aspect-w-1 aspect-h-1">
                 <img
                     className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-110"
