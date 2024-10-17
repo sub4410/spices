@@ -1,7 +1,7 @@
 import './App.css'
 import SIGNUP from './pages/Signup'
 import SIGNIN from './pages/Signin'
-import { HashRouter, Route, Routes, Navigate } from 'react-router-dom'  // Add Navigate if not imported
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'  // Add Navigate if not imported
 import { Dashboard } from './pages/Dashboard'
 import PRODUCT from './pages/ProductPage'
 import PROFILEPAGE from './pages/UserProfilePage'
@@ -38,7 +38,7 @@ function App() {
 
   return (
     <div>
-      <HashRouter>
+      <BrowserRouter>
         <Routes>
           {/* Landing Page should always be accessible */}
           <Route path="/" element={<LandingPage />} />
@@ -77,7 +77,7 @@ function App() {
           {/* 404 Error Page */}
           <Route path="*" element={<Error404Page />} />
         </Routes>
-      </HashRouter>
+      </BrowserRouter>
     </div>
   );
 }
