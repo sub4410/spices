@@ -78,7 +78,7 @@ export const LandingPage = () => {
                 </p>
                 <div className="mt-8 flex justify-center lg:justify-start">
                   <a
-                    href="/sigin"
+                    href="/dashboard"
                     className="px-6 py-3 bg-black text-white font-semibold rounded-md shadow hover:bg-orange-900"
                   >
                     Shop Now
@@ -215,7 +215,7 @@ export const LandingPage = () => {
             today. <br /> Elevate your cooking to the next level!
           </p>
           <a
-            href="/sigin"
+            href="/dashboard"
             className="mt-8 px-6 py-3 bg-white text-black font-semibold rounded-md shadow hover:bg-yellow-100">
             Start Shopping
           </a>
