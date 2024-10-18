@@ -6,7 +6,6 @@ import { spiceAtom } from "../assets/spices";
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for routing
 import toast, { Toaster } from 'react-hot-toast';
 
-
 export function CheckOutPage() {
   const cartItems = useRecoilValue(cartAtom); // Now contains id and quantity
   const products = useRecoilValue(spiceAtom); // All available products
@@ -16,6 +15,7 @@ export function CheckOutPage() {
   const [isChecked, setIsChecked] = useState(false); // Track if the checkbox is checked
   const [orderStatus, setOrderStatus] = useState(''); // Track order status
   const [warningMessage, setWarningMessage] = useState(''); // Track warning message
+  const [isPlacingOrder, setIsPlacingOrder] = useState(false); // Track if the order is being placed
   
   // Create a product array by mapping the product details with the quantity from the cart
   const productArray = cartItems.map((cartItem) => {
@@ -72,6 +72,12 @@ export function CheckOutPage() {
       pincode: userAddress.pincode,
     };
   
+    setIsPlacingOrder(true); // Set placing order to true
+    toast.loading('Placing the order...', {
+      id: 'placing-order-toast',
+      duration: 3000,
+    });
+
     try {
       const response = await fetch('https://organicspices.azurewebsites.net/api/user_order', {
         method: 'POST',
@@ -86,6 +92,7 @@ export function CheckOutPage() {
         const data = await response.json();
         setOrderStatus('Order placed successfully!');
         toast.success('Order placed successfully!', {
+          id: 'placing-order-toast',
           icon: '✅', // Or you can use an SVG like <CheckCircleIcon className="h-6 w-6 text-green-500" />
           duration: 3000, // Show success message for 3 seconds
           style: {
@@ -102,22 +109,22 @@ export function CheckOutPage() {
           }
         });
 
-        // Use setTimeout to navigate to the dashboard after the alert
+        // Use setTimeout to navigate to the "My Orders" page after the alert
         setTimeout(() => {
-          navigate('/dashboard'); // Redirect after alert
+          navigate('/dashboard'); // Redirect to "My Orders" page after alert
         }, 3000); // Small delay to ensure the alert is handled
 
       } else {
         const error = await response.json();
         setOrderStatus('Order failed: ' + error.message);
         toast.error('Order failed: ' + error.message, { duration: 5000 });
-      
+        setIsPlacingOrder(false); // Set placing order to false
       }
     } catch (error) {
       console.error('Error placing order:', error);
       setOrderStatus('Order failed: ' + error.message);
       toast.error('Order failed: ' + error.message, { duration: 5000 });
-    
+      setIsPlacingOrder(false); // Set placing order to false
     }
   };
   
@@ -188,8 +195,9 @@ export function CheckOutPage() {
                   type="button"
                   className="min-w-[150px] px-6 py-3.5 text-sm bg-gray-800 text-white rounded-md hover:bg-[#111]"
                   onClick={handleCheckout}
+                  disabled={isPlacingOrder} // Disable button while placing order
                 >
-                  Place Order
+                  {isPlacingOrder ? 'Placing the order...' : 'Place Order'}
                 </button>
               </div>
             </form>
